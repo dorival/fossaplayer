@@ -11,16 +11,16 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    window.api.receive('IsAuthenticated', (isAuthenticated) => {
+    window.api.receive('user.pub.onedrive.event.is-authenticated', (isAuthenticated) => {
       console.log('[IsAuthenticated] Received response', isAuthenticated);
       if(isAuthenticated) {
-        window.api.send('AcquireUserInfo');
+        window.api.send('user.pub.onedrive.request.user-profile');
       } else {
         console.log('Cant authenticate...')
       }
     });
 
-    window.api.receive('UserInfo', (userInfo) => {
+    window.api.receive('user.pub.onedrive.event.user-profile', (userInfo) => {
       this.setState({
         username: userInfo.username
       });
@@ -28,7 +28,7 @@ class Player extends React.Component {
   }
 
   handleClick() {
-    window.api.send('AcquireToken');
+    window.api.send('user.pub.onedrive.request.access-token');
   }
 
   render() {

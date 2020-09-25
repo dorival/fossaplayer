@@ -1,4 +1,5 @@
 const { contextBridge, ipcRenderer } = require("electron");
+const { CLEARANCE_CHANNEL } = require("./core/constants");
 
 // Read more here: https://stackoverflow.com/questions/57807459/how-to-use-preload-js-properly-in-electron
 
@@ -6,15 +7,12 @@ const { contextBridge, ipcRenderer } = require("electron");
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld("api", {
   send: (channel, data) => {
-    // whitelist channels
-    let validChannels = ["AcquireToken", "AcquireUserInfo"];
-    if (validChannels.includes(channel)) {
+    if (CLEARANCE_CHANNEL.test(channel)) {
       ipcRenderer.send(channel, data);
     }
   },
   receive: (channel, func) => {
-    let validChannels = ["IsAuthenticated", "UserInfo"];
-    if (validChannels.includes(channel)) {
+    if (CLEARANCE_CHANNEL.test(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     }
