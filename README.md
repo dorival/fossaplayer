@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Also trying to sign this with a proper GPG Key.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Also trying to sign this with a proper GPG Key. Second attempt.
 
 ## Available Scripts
 
